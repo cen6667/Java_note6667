@@ -499,7 +499,7 @@ LIMIT		<limit_params>
   SELECT 列名1,列名2,... FROM 表名;
   ```
 
-* **去除重复查询**：只有值全部重复的才可以去除，需要创建临时表辅助查询
+* **去除重复查询**：只有值选中输出的列全部相同的才可以去除，需要创建临时表辅助查询
 
   ```mysql
   SELECT DISTINCT 列名1,列名2,... FROM 表名;
@@ -538,6 +538,10 @@ LIMIT		<limit_params>
   -- 查询商品名称和库存，库存数量在原有基础上加10。进行null值判断，起别名为getSum,AS可以省略。
   SELECT NAME,IFNULL(stock,0)+10 AS getsum FROM product;
   SELECT NAME,IFNULL(stock,0)+10 getsum FROM product;
+  
+  -- 列别名、表别名
+  select  column_1  as  列1,column_2 as  列2   from  table  as  表1
+  -- 上面的语句就可以解释为，选择 column_1  作为  列1,column_2 作为   列2  从 table  当成 表1
   ```
 
 
@@ -565,7 +569,7 @@ LIMIT		<limit_params>
   | <=                  | 小于等于                                                     |
   | =                   | 等于                                                         |
   | <> 或 !=            | 不等于                                                       |
-  | BETWEEN ... AND ... | 在某个范围之内(都包含)                                       |
+  | BETWEEN ... AND ... | 在某个范围之内(都包含）【a,b】全封闭结构，即 大于等于a并小于等于b。 |
   | IN(...)             | 多选一                                                       |
   | LIKE                | **模糊查询**：_单个任意字符、%任意个字符、[] 匹配集合内的字符<br/>`LIKE '[^AB]%' `：不以 A 和 B 开头的任意文本 |
   | IS NULL             | 是NULL                                                       |
@@ -829,7 +833,7 @@ SELECT * FROM emp WHERE name REGEXP '[uvw]';-- 匹配包含 uvw 的name值
 
 ### 分组查询
 
-分组查询会进行去重
+分组查询可以看作为每个组重新建了一张表，可以在里面进行统计，再输出一行组成结果表
 
 * 分组查询语法
 
@@ -861,7 +865,7 @@ SELECT * FROM emp WHERE name REGEXP '[uvw]';-- 匹配包含 uvw 的name值
   SELECT brand,SUM(price) AS getSum FROM product WHERE price > 4000 GROUP BY brand HAVING getSum > 7000 ORDER BY getSum DESC;
   ```
 
-
+![在这里插入图片描述](img/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMDU5MzIw,size_16,color_FFFFFF,t_70.png)
 
 
 ***
