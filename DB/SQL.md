@@ -1,4 +1,4 @@
-# SQL语言的分类
+#  SQL语言的分类
 
 SQL语言共分为四大类：数据查询语言DQL，数据操纵语言DML，数据定义语言DDL，数据控制语言DCL。
 
@@ -1325,6 +1325,26 @@ INSERT INTO stu_course VALUES (NULL,1,1),(NULL,1,2),(NULL,2,1),(NULL,2,2);
 
 STRAIGHT_JOIN与 JOIN 类似，只不过左表始终在右表之前读取，只适用于内连接
 
+```sql
+SELECT 
+    o.cust_id cust_id,
+    tb.total_ordered total_ordered
+FROM (
+    SELECT
+        order_num,
+        SUM(item_price * quantity) total_ordered
+    FROM
+        OrderItems
+    GROUP BY
+        order_num
+    ) tb,
+    Orders o
+WHERE
+    tb.order_num = o.order_num
+ORDER BY
+    total_ordered DESC;
+```
+
 
 
 
@@ -1352,7 +1372,7 @@ STRAIGHT_JOIN与 JOIN 类似，只不过左表始终在右表之前读取，只�
 
 ![](img/MySQL-JOIN查询图.png)
 
-
+join默认连接就是内连接inner
 
 
 ***
