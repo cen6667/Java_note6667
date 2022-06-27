@@ -2724,3 +2724,30 @@ Redis缓存的使用，极大的提升了应用程序的性能和效率，特别
 
 数据加热的含义就是在正式部署之前，我先把可能的数据先预先访问一遍，这样部分可能大量访问的数据就会加载到缓存中。在即将发生大并发访问前手动触发加载缓存不同的key，设置不同的过期时间，让缓存失效的时间点尽量均匀。
 
+# 命令
+
+```bash
+cd /usr/local/bin
+redis-server myconf/redis.conf  # 启动redis服务
+redis-cli -p 6379  # -h 指定主机 -p指定端口
+ps -ef|grep redis # 查看redis进程
+
+```
+
+```bash
+ping	# 测试连接
+shutdown   # 关闭服务
+exit   # 退出
+```
+
+```bash
+# 1、开放redis的6379端口【假设redis端口为6379】
+firewall-cmd --zone=public --add-port=6379/tcp --permanent
+
+# 2、重启防火墙使得配置生效
+systemctl restart firewalld
+
+# 3、查看系统所有开放的端口
+firewall-cmd --zone=public --list-ports
+```
+
